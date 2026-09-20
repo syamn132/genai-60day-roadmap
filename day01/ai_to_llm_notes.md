@@ -2,7 +2,7 @@ AI: AI is the broader field of building systems that perform tasks associated wi
 
 ML: ML is a part of AI and instead of writing set of rules we will give the data to the computer, and the algorithm learns the pattern from the data we gave.
 
-Deep Learning: Deep Learning is a subset of ML that uses multi-layer neural networks to automatically learn increasingly useful representations from data, reducing the need for manual feature engineering.
+Deep Learning: Deep Learning is a subset of ML that uses multi-layer neural networks to automatically learn increasingly useful representations from data, reducing the need for manual feature engineering. It is called deep because the neural network has multiple hidden layers between input and output.
 
 NLP: NLP is the field of AI concerned with enabling computers to process, understand, analyze, and generate human language.
 
