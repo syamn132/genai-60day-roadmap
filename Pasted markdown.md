@@ -6,17 +6,17 @@
 
 **Last updated:** 2026-09-27
 
-**Overall progress:** Days 1–19 completed.
+**Overall progress:** Days 1–20 completed. Day 21 in progress (Part 1 complete).
 
 **Current sprint:** 🔵 Sprint 2 — RAG & Retrieval Engineering
 
-**Next exact step:** Day 20 — Part 1: Semantic Search
+**Next exact step:** Day 21 — Part 2: Top-K Retrieval
 
-**Day 20 roadmap:**
+**Day 21 roadmap:**
 
-- Part 1: Semantic Search
-- Part 2: Hybrid Search
-- Part 3: BM25
+- ✅ Part 1: Retrieval
+- 🔄 Part 2: Top-K Retrieval — NEXT
+- ⬜ Part 3: Context Building
 
 **Day 16 project status:** LLM Inference & Decoding Playground completed, tested, committed and uploaded. Final verbal project-review questions were intentionally deferred to final interview preparation.
 
@@ -272,7 +272,7 @@
 
 \- Indexing
 
-⬜ Day 20
+✅ Day 20
 
 \- Semantic Search
 
@@ -280,13 +280,13 @@
 
 \- BM25
 
-⬜ Day 21
+🟡 Day 21 — IN PROGRESS
 
-\- Retrieval
+\- ✅ Retrieval
 
-\- Top-K Retrieval
+\- ⬜ Top-K Retrieval
 
-\- Context Building
+\- ⬜ Context Building
 
 ⬜ Day 22
 
