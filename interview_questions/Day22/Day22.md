@@ -1,0 +1,2 @@
+1. Explain an end-to-end RAG pipeline.
+A. A RAG system has an indexing path and a query path. During indexing, documents are parsed, split into chunks, enriched with metadata, embedded, and stored in a searchable vector or hybrid index. At query time, the user query is processed and searched against that index, relevant chunks are ranked and selected using Top-K, then cleaned and structured into context. That context is combined with the user's question and instructions and sent to the LLM, which generates a grounded answer using the retrieved evidence.

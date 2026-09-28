@@ -6,16 +6,18 @@
 
 **Last updated:** 2026-09-28
 
-**Overall progress:** Days 1–21 completed.
+**Overall progress:** Days 1–22 completed.
 
 **Current sprint:** 🔵 Sprint 2 — RAG & Retrieval Engineering
 
-**Next exact step:** Day 22 — Part 1: RAG Architecture
+**Next exact step:** Day 23 — Advanced RAG
 
-**Day 22 roadmap:**
+**Day 23 roadmap:**
 
-- Part 1: RAG Architecture
-- Part 2: End-to-End Flow
+- Advanced RAG
+- Query Expansion
+- Compression
+- Reranking
 
 **Day 16 project status:** LLM Inference & Decoding Playground completed, tested, committed and uploaded. Final verbal project-review questions were intentionally deferred to final interview preparation.
 
@@ -287,7 +289,7 @@
 
 \- Context Building
 
-⬜ Day 22
+✅ Day 22
 
 \- RAG Architecture
 
