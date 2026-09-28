@@ -4,19 +4,18 @@
 
 ## 📌 SINGLE SOURCE OF TRUTH — CURRENT STATUS
 
-**Last updated:** 2026-09-27
+**Last updated:** 2026-09-28
 
-**Overall progress:** Days 1–20 completed. Day 21 in progress (Part 1 complete).
+**Overall progress:** Days 1–21 completed.
 
 **Current sprint:** 🔵 Sprint 2 — RAG & Retrieval Engineering
 
-**Next exact step:** Day 21 — Part 2: Top-K Retrieval
+**Next exact step:** Day 22 — Part 1: RAG Architecture
 
-**Day 21 roadmap:**
+**Day 22 roadmap:**
 
-- ✅ Part 1: Retrieval
-- 🔄 Part 2: Top-K Retrieval — NEXT
-- ⬜ Part 3: Context Building
+- Part 1: RAG Architecture
+- Part 2: End-to-End Flow
 
 **Day 16 project status:** LLM Inference & Decoding Playground completed, tested, committed and uploaded. Final verbal project-review questions were intentionally deferred to final interview preparation.
 
@@ -280,13 +279,13 @@
 
 \- BM25
 
-🟡 Day 21 — IN PROGRESS
+✅ Day 21
 
-\- ✅ Retrieval
+\- Retrieval
 
-\- ⬜ Top-K Retrieval
+\- Top-K Retrieval
 
-\- ⬜ Context Building
+\- Context Building
 
 ⬜ Day 22
 
