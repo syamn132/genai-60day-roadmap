@@ -1,0 +1,8 @@
+1. How would you evaluate a RAG system?
+A. I would evaluate retrieval and generation separately. For retrieval, I'd measure whether the expected evidence appears in Top-K using metrics such as recall@K, precision@K, hit rate, and ranking metrics. For generation, I'd measure answer correctness, relevance, faithfulness to retrieved context, completeness, and citation accuracy. I'd maintain a representative golden evaluation dataset, run offline regression tests whenever retrieval or prompt settings change, and supplement those results with production feedback and monitoring.
+
+2. Does RAG eliminate hallucinations?
+A. No. RAG reduces hallucination risk by grounding the LLM in retrieved external evidence, but hallucinations can still occur if retrieval returns incorrect or incomplete information, context is noisy or outdated, or the model generates claims unsupported by the supplied evidence. I would evaluate retrieval and generation separately, enforce no-answer behavior when evidence is insufficient, preserve citations and source metadata, and validate answer faithfulness against retrieved context.
+
+3. What are guardrails in a RAG system?
+A. Guardrails are controls around the RAG pipeline that constrain inputs, retrieval, generation, and outputs. I would use deterministic authentication and authorization before retrieval, metadata filtering so users only access permitted documents, grounding instructions and no-answer behavior when evidence is insufficient, and output validation for citations, supported claims, and structured formats. For security-critical rules, I would enforce them outside the LLM rather than relying on the model to obey instructions.

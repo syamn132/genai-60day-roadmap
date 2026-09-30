@@ -4,20 +4,24 @@
 
 ## 📌 SINGLE SOURCE OF TRUTH — CURRENT STATUS
 
-**Last updated:** 2026-09-28
+**Last updated:** 2026-09-29
 
-**Overall progress:** Days 1–22 completed.
+**Overall progress:** Days 1–24 completed.
 
 **Current sprint:** 🔵 Sprint 2 — RAG & Retrieval Engineering
 
-**Next exact step:** Day 23 — Advanced RAG
+**Next exact step:** Day 25 — Sprint 2 Project: Enterprise RAG Chatbot
 
-**Day 23 roadmap:**
+**Day 23 status:** Completed — Advanced RAG, Query Expansion, Compression, Reranking.
 
-- Advanced RAG
-- Query Expansion
-- Compression
-- Reranking
+**Day 24 status:** Completed — Production RAG, Evaluation, Hallucination, Guardrails.
+
+**Day 24 one-pagers:** Pending because the image-generation limit was reached; planned to be requested on 2026-10-01.
+
+**Day 25 roadmap:**
+
+- Sprint 2 Project
+- Enterprise RAG Chatbot
 
 **Day 16 project status:** LLM Inference & Decoding Playground completed, tested, committed and uploaded. Final verbal project-review questions were intentionally deferred to final interview preparation.
 
@@ -295,7 +299,7 @@
 
 \- End-to-End Flow
 
-⬜ Day 23
+✅ Day 23
 
 \- Advanced RAG
 
@@ -305,7 +309,7 @@
 
 \- Reranking
 
-⬜ Day 24
+✅ Day 24
 
 \- Production RAG
 
