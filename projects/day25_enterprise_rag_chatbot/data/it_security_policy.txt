@@ -1,0 +1,13 @@
+IT SECURITY POLICY
+
+All employee passwords must contain at least 12 characters.
+
+Multi-factor authentication is mandatory for company systems that support it.
+
+Employees must not share passwords with colleagues or external parties.
+
+Company information must only be stored on approved systems and devices.
+
+Employees should report suspected phishing emails, unusual login activity, or lost company devices to the IT security team as soon as possible.
+
+Access to company systems must be removed when an employee or contractor leaves the organization.

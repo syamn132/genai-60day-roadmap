@@ -1,0 +1,176 @@
+[
+  {
+    "id": "annual_leave_days",
+    "question": "How many annual leave days do employees get?",
+    "expected_status": "answered",
+    "actual_status": "answered",
+    "expected_source": "leave_policy.txt",
+    "candidate_source_rank": 1,
+    "final_source_rank": 1,
+    "answer": "Yes",
+    "sources": [
+      "leave_policy.txt"
+    ],
+    "evidence_score": 0.6943701505661011,
+    "strict_pass": false
+  },
+  {
+    "id": "leave_carry_forward",
+    "question": "How many unused leave days can be carried forward?",
+    "expected_status": "answered",
+    "actual_status": "answered",
+    "expected_source": "leave_policy.txt",
+    "candidate_source_rank": 1,
+    "final_source_rank": 1,
+    "answer": "5",
+    "sources": [
+      "leave_policy.txt"
+    ],
+    "evidence_score": 0.8374035358428955,
+    "strict_pass": true
+  },
+  {
+    "id": "long_leave_approval",
+    "question": "Who must approve leave lasting more than five consecutive working days?",
+    "expected_status": "answered",
+    "actual_status": "answered",
+    "expected_source": "leave_policy.txt",
+    "candidate_source_rank": 1,
+    "final_source_rank": 1,
+    "answer": "Manager",
+    "sources": [
+      "leave_policy.txt"
+    ],
+    "evidence_score": 0.6898801326751709,
+    "strict_pass": true
+  },
+  {
+    "id": "contractor_paid_leave",
+    "question": "Can contractors take paid annual leave?",
+    "expected_status": "answered",
+    "actual_status": "answered",
+    "expected_source": "contractor_policy.txt",
+    "candidate_source_rank": 1,
+    "final_source_rank": 1,
+    "answer": "Non-contract employees are not eligible for paid annual leave under the standard employee leave policy. Contractors may request unpaid time off.",
+    "sources": [
+      "contractor_policy.txt"
+    ],
+    "evidence_score": 0.7992453575134277,
+    "strict_pass": true
+  },
+  {
+    "id": "contractor_unpaid_time_off",
+    "question": "Can contractors request unpaid time off?",
+    "expected_status": "answered",
+    "actual_status": "answered",
+    "expected_source": "contractor_policy.txt",
+    "candidate_source_rank": 1,
+    "final_source_rank": 1,
+    "answer": "No",
+    "sources": [
+      "contractor_policy.txt"
+    ],
+    "evidence_score": 0.7181934118270874,
+    "strict_pass": false
+  },
+  {
+    "id": "remote_work_days",
+    "question": "How many days per week can employees work remotely?",
+    "expected_status": "answered",
+    "actual_status": "answered",
+    "expected_source": "remote_work_policy.txt",
+    "candidate_source_rank": 1,
+    "final_source_rank": 1,
+    "answer": "Up to three days",
+    "sources": [
+      "remote_work_policy.txt"
+    ],
+    "evidence_score": 0.768011748790741,
+    "strict_pass": true
+  },
+  {
+    "id": "permanent_remote_approval",
+    "question": "Who must approve a permanent remote work arrangement?",
+    "expected_status": "answered",
+    "actual_status": "answered",
+    "expected_source": "remote_work_policy.txt",
+    "candidate_source_rank": 1,
+    "final_source_rank": 1,
+    "answer": "Human Resources",
+    "sources": [
+      "remote_work_policy.txt"
+    ],
+    "evidence_score": 0.8490728139877319,
+    "strict_pass": false
+  },
+  {
+    "id": "password_length",
+    "question": "What is the minimum password length?",
+    "expected_status": "answered",
+    "actual_status": "answered",
+    "expected_source": "it_security_policy.txt",
+    "candidate_source_rank": 1,
+    "final_source_rank": 1,
+    "answer": "12 characters",
+    "sources": [
+      "it_security_policy.txt"
+    ],
+    "evidence_score": 0.6634392738342285,
+    "strict_pass": true
+  },
+  {
+    "id": "multi_factor_authentication",
+    "question": "Is multi-factor authentication mandatory?",
+    "expected_status": "answered",
+    "actual_status": "answered",
+    "expected_source": "it_security_policy.txt",
+    "candidate_source_rank": 1,
+    "final_source_rank": 1,
+    "answer": "Yes",
+    "sources": [
+      "it_security_policy.txt"
+    ],
+    "evidence_score": 0.5655339956283569,
+    "strict_pass": true
+  },
+  {
+    "id": "relocation_allowance",
+    "question": "What is the company's relocation allowance?",
+    "expected_status": "insufficient_evidence",
+    "actual_status": "insufficient_evidence",
+    "expected_source": null,
+    "candidate_source_rank": null,
+    "final_source_rank": null,
+    "answer": "I couldn't find enough information in the available company documents to answer that question.",
+    "sources": [],
+    "evidence_score": 0.3066277503967285,
+    "strict_pass": true
+  },
+  {
+    "id": "health_insurance",
+    "question": "How much does the company pay for employee health insurance?",
+    "expected_status": "insufficient_evidence",
+    "actual_status": "insufficient_evidence",
+    "expected_source": null,
+    "candidate_source_rank": null,
+    "final_source_rank": null,
+    "answer": "I couldn't find enough information in the available company documents to answer that question.",
+    "sources": [],
+    "evidence_score": 0.28608953952789307,
+    "strict_pass": true
+  },
+  {
+    "id": "cafeteria_hours",
+    "question": "What time does the company cafeteria open?",
+    "expected_status": "insufficient_evidence",
+    "actual_status": "insufficient_evidence",
+    "expected_source": null,
+    "candidate_source_rank": null,
+    "final_source_rank": null,
+    "answer": "I couldn't find enough information in the available company documents to answer that question.",
+    "sources": [],
+    "evidence_score": 0.46093469858169556,
+    "strict_pass": true
+  }
+]
