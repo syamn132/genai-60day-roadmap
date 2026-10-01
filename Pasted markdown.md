@@ -6,11 +6,11 @@
 
 **Last updated:** 2026-10-01
 
-**Overall progress:** Days 1–26 completed.
+**Overall progress:** Days 1–27 completed.
 
 **Current sprint:** 🟣 Sprint 3 — LLM Frameworks
 
-**Next exact step:** Day 27 — Part 1: OpenAI API
+**Next exact step:** Day 28 — LangChain Basics
 
 **Day 23 status:** Completed — Advanced RAG, Query Expansion, Compression, Reranking.
 
@@ -47,11 +47,27 @@
 
 **Day 26 one-pagers:** Completed — Part 1 Prompt Engineering, Part 2 Prompt Patterns, plus Day 26 Master one-pager.
 
-**Day 27 roadmap:**
+**Day 27 status:** Completed — Model APIs: OpenAI API, Gemini API, and Claude API.
 
-- Part 1: OpenAI API — NEXT
-- Part 2: Gemini API
-- Part 3: Claude API
+**Day 27 project:** `projects/day27_model_apis/`
+
+**Day 27 learning breakdown:**
+
+- ✅ Part 1: OpenAI API — official Python SDK, Responses API, API-key authentication, `instructions` + `input`, response parsing, classification example, and basic error handling.
+- ✅ Part 2: Gemini API — `google-genai` SDK, Interactions API, `GEMINI_API_KEY`, `system_instruction`, generation configuration, classification, conversation state with `previous_interaction_id`, streaming concepts, multimodal awareness, and error handling.
+- ✅ Part 3: Claude API — Anthropic Python SDK, Messages API, `ANTHROPIC_API_KEY`, top-level `system` instructions, `messages` history, `max_tokens`, content-block parsing, streaming concepts, classification, stateless multi-turn conversations, and error handling.
+
+**Day 27 runtime notes:**
+
+- OpenAI: SDK and authentication worked and the request reached the API, but live generation was blocked by exhausted API credits (`credit_balance_exhausted`).
+- Gemini: Live API request succeeded. The working model used during the exercise was `gemini-3.5-flash-lite` because it responded faster in the user's environment than the heavier option tried earlier.
+- Claude: API integration and code were taught and prepared; a successful live Claude terminal run was not explicitly confirmed in the chat.
+
+**Day 27 one-pagers:** Completed — Part 1 OpenAI API, Part 2 Gemini API, Part 3 Claude API, plus Day 27 Master Model APIs one-pager.
+
+**Day 28 roadmap:**
+
+- Part 1: LangChain Basics — NEXT
 
 **Day 16 project status:** LLM Inference & Decoding Playground completed, tested, committed and uploaded. Final verbal project-review questions were intentionally deferred to final interview preparation.
 
@@ -363,7 +379,7 @@
 
 \- Prompt Patterns
 
-⬜ Day 27
+✅ Day 27
 
 \- OpenAI API
 
