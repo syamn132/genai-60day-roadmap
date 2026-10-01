@@ -4,24 +4,44 @@
 
 ## 📌 SINGLE SOURCE OF TRUTH — CURRENT STATUS
 
-**Last updated:** 2026-09-29
+**Last updated:** 2026-10-01
 
-**Overall progress:** Days 1–24 completed.
+**Overall progress:** Days 1–25 completed.
 
-**Current sprint:** 🔵 Sprint 2 — RAG & Retrieval Engineering
+**Current sprint:** 🟣 Sprint 3 — LLM Frameworks
 
-**Next exact step:** Day 25 — Sprint 2 Project: Enterprise RAG Chatbot
+**Next exact step:** Day 26 — Part 1: Prompt Engineering
 
 **Day 23 status:** Completed — Advanced RAG, Query Expansion, Compression, Reranking.
 
 **Day 24 status:** Completed — Production RAG, Evaluation, Hallucination, Guardrails.
 
-**Day 24 one-pagers:** Pending because the image-generation limit was reached; planned to be requested on 2026-10-01.
+**Day 24 one-pagers:** Completed — Part 1 Production RAG, Part 2 Evaluation, Part 3 Hallucination, Part 4 Guardrails, plus Day 24 Master one-pager.
 
-**Day 25 roadmap:**
+**Day 25 status:** Completed — Sprint 2 Project: Enterprise RAG Chatbot. Project was built, evaluated, refined, documented, and pushed to GitHub.
 
-- Sprint 2 Project
-- Enterprise RAG Chatbot
+**Day 25 project:** `projects/day25_enterprise_rag_chatbot/`
+
+**Day 25 implementation breakdown used in this study:**
+
+- ✅ Part 1: Architecture & Setup
+- ✅ Part 2: Document Ingestion
+- ✅ Part 3: Semantic Retrieval
+- ✅ Part 4: Advanced RAG
+- ✅ Part 5: Generation + Guardrails
+- ✅ Part 6: Evaluation
+- ✅ Part 7: Integration + GitHub
+
+**Day 25 core implementation:** paragraph-aware chunking, metadata propagation, MiniLM dense embeddings, FAISS indexing/search, query expansion, multi-query retrieval, cross-encoder reranking, extractive contextual compression, context building, FLAN-T5 grounded generation, evidence-threshold abstention, deterministic source attribution, automated evaluation, offline index build, and interactive chatbot runtime.
+
+**Day 25 evaluation baseline before final refinements:** Candidate Hit Rate 100.0%, Rerank Hit Rate 100.0%, Answer Keyword Accuracy 77.8%, Source Hit Rate 100.0%, Status Accuracy 91.7%, No-Answer Guardrail Accuracy 66.7%, Strict End-to-End Pass Rate 75.0%. The evaluation exposed generation and abstention failures; the evidence threshold was then raised to 0.50 and prompt/output guardrails were refined. Post-refinement metrics were not recorded in the chat.
+
+**Day 25 one-pager:** Completed — Enterprise RAG Chatbot project summary.
+
+**Day 26 roadmap:**
+
+- Part 1: Prompt Engineering — NEXT
+- Part 2: Prompt Patterns
 
 **Day 16 project status:** LLM Inference & Decoding Playground completed, tested, committed and uploaded. Final verbal project-review questions were intentionally deferred to final interview preparation.
 
@@ -319,7 +339,7 @@
 
 \- Guardrails
 
-⬜ Day 25
+✅ Day 25
 
 \- Sprint 2 Project
 
