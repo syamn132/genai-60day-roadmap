@@ -6,11 +6,11 @@
 
 **Last updated:** 2026-10-01
 
-**Overall progress:** Days 1–25 completed.
+**Overall progress:** Days 1–26 completed.
 
 **Current sprint:** 🟣 Sprint 3 — LLM Frameworks
 
-**Next exact step:** Day 26 — Part 1: Prompt Engineering
+**Next exact step:** Day 27 — Part 1: OpenAI API
 
 **Day 23 status:** Completed — Advanced RAG, Query Expansion, Compression, Reranking.
 
@@ -38,10 +38,20 @@
 
 **Day 25 one-pager:** Completed — Enterprise RAG Chatbot project summary.
 
-**Day 26 roadmap:**
+**Day 26 status:** Completed — Prompt Engineering and Prompt Patterns.
 
-- Part 1: Prompt Engineering — NEXT
-- Part 2: Prompt Patterns
+**Day 26 learning breakdown:**
+
+- ✅ Part 1: Prompt Engineering — task, context, input, constraints, delimiters, output format, failure behavior, grounding, role instructions, prompt structure, prompt-vs-fine-tuning, prompt-vs-RAG, prompt-vs-decoding, and iterative prompt evaluation/refinement.
+- ✅ Part 2: Prompt Patterns — zero-shot, few-shot, role/persona, structured output, constraints, context/grounding, templates, extraction, classification, decomposition, plan-then-execute, critique/refine, validation, abstention/fallback, source attribution, rewrite, comparison, audience adaptation, prompt chaining, and dynamic templates.
+
+**Day 26 one-pagers:** Completed — Part 1 Prompt Engineering, Part 2 Prompt Patterns, plus Day 26 Master one-pager.
+
+**Day 27 roadmap:**
+
+- Part 1: OpenAI API — NEXT
+- Part 2: Gemini API
+- Part 3: Claude API
 
 **Day 16 project status:** LLM Inference & Decoding Playground completed, tested, committed and uploaded. Final verbal project-review questions were intentionally deferred to final interview preparation.
 
@@ -347,7 +357,7 @@
 
 🟣 Sprint 3 — LLM Frameworks
 
-⬜ Day 26
+✅ Day 26
 
 \- Prompt Engineering
 
