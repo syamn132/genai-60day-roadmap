@@ -4,13 +4,13 @@
 
 ## 📌 SINGLE SOURCE OF TRUTH — CURRENT STATUS
 
-**Last updated:** 2026-10-01
+**Last updated:** 2026-10-03
 
-**Overall progress:** Days 1–27 completed.
+**Overall progress:** Days 1–29 completed.
 
 **Current sprint:** 🟣 Sprint 3 — LLM Frameworks
 
-**Next exact step:** Day 28 — LangChain Basics
+**Next exact step:** Day 30 — LangGraph Basics
 
 **Day 23 status:** Completed — Advanced RAG, Query Expansion, Compression, Reranking.
 
@@ -65,9 +65,60 @@
 
 **Day 27 one-pagers:** Completed — Part 1 OpenAI API, Part 2 Gemini API, Part 3 Claude API, plus Day 27 Master Model APIs one-pager.
 
-**Day 28 roadmap:**
+**Day 28 status:** Completed — LangChain Basics.
 
-- Part 1: LangChain Basics — NEXT
+**Day 28 project:** `projects/day28_langchain_basics/`
+
+**Day 28 learning breakdown:**
+
+- ✅ LangChain purpose and architecture — framework vs LLM, provider integrations, standard model interface, and provider abstraction.
+- ✅ `init_chat_model()` and `model.invoke()` for a common model-calling interface.
+- ✅ `SystemMessage`, `HumanMessage`, and `AIMessage`.
+- ✅ Plain-string inputs vs message-based inputs.
+- ✅ `invoke()`, `stream()`, and `batch()` concepts.
+- ✅ Provider switching concept using the same LangChain interface.
+- ✅ Direct SDK vs LangChain trade-offs.
+
+**Day 28 runtime notes:**
+
+- Live Gemini call through LangChain succeeded using `gemini-3.5-flash-lite`.
+- The model returned the requested three bullet points.
+- A warning indicated that `temperature` is ignored for this model because it uses fixed sampling defaults.
+- An AFC-related warning was informational only; the request still completed successfully.
+
+**Day 28 one-pager:** Completed — LangChain Basics one-pager.
+
+**Day 29 status:** Completed — LangChain Chains, Memory, and Tools.
+
+**Day 29 project:** `projects/day29_langchain_chains_memory_tools/`
+
+**Day 29 learning breakdown:**
+
+- ✅ Part 1: LangChain Chains — `ChatPromptTemplate`, dynamic variables, `StrOutputParser`, runnable composition with `|`, `chain.invoke()`, `stream()`, `batch()`, chain input/output types, practical classification chain, and chain vs prompt chaining.
+- ✅ Part 2: Memory — manual message history, `MessagesPlaceholder`, `HumanMessage` + `AIMessage`, conversational context, session-based memory, ephemeral vs persistent memory, short-term vs long-term memory, memory strategies (buffer/window/summary/retrieval), context-window limits, memory vs RAG, and memory vs fine-tuning.
+- ✅ Part 3: Tools — `@tool`, type hints and docstrings as tool schema, direct tool testing, `bind_tools()`, `AIMessage.tool_calls`, manual tool execution loop, `ToolMessage`, multiple-tool registry, read vs write tools, tool safety, tool vs chain, and tool vs agent.
+
+**Day 29 implementation pattern learned:**
+
+```text
+Chains:
+Input → Prompt Template → Model → Output Parser → Result
+
+Memory:
+History + Current Question → Prompt → Model → Append New Turn → Updated History
+
+Tools:
+User → Tool-enabled Model → Tool Call → Application Executes Tool
+→ Tool Result / ToolMessage → Model → Final Answer
+```
+
+**Day 29 execution note:** Teaching, code walkthroughs, and implementation examples were completed, but separate terminal output confirming each Day 29 local script was not explicitly posted in the chat.
+
+**Day 29 one-pagers:** Completed — Part 1 Chains, Part 2 Memory, Part 3 Tools, plus Day 29 Master one-pager.
+
+**Day 30 roadmap:**
+
+- Part 1: LangGraph Basics — NEXT
 
 **Day 16 project status:** LLM Inference & Decoding Playground completed, tested, committed and uploaded. Final verbal project-review questions were intentionally deferred to final interview preparation.
 
@@ -387,11 +438,11 @@
 
 \- Claude API
 
-⬜ Day 28
+✅ Day 28
 
 \- LangChain Basics
 
-⬜ Day 29
+✅ Day 29
 
 \- LangChain Chains
 
