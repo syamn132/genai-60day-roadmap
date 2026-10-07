@@ -4,13 +4,13 @@
 
 ## 📌 SINGLE SOURCE OF TRUTH — CURRENT STATUS
 
-**Last updated:** 2026-10-03
+**Last updated:** 2026-10-07
 
-**Overall progress:** Days 1–29 completed.
+**Overall progress:** Days 1–30 completed.
 
 **Current sprint:** 🟣 Sprint 3 — LLM Frameworks
 
-**Next exact step:** Day 30 — LangGraph Basics
+**Next exact step:** Day 31 — MCP (Model Context Protocol)
 
 **Day 23 status:** Completed — Advanced RAG, Query Expansion, Compression, Reranking.
 
@@ -116,9 +116,19 @@ User → Tool-enabled Model → Tool Call → Application Executes Tool
 
 **Day 29 one-pagers:** Completed — Part 1 Chains, Part 2 Memory, Part 3 Tools, plus Day 29 Master one-pager.
 
-**Day 30 roadmap:**
+**Day 30 status:** Completed — LangGraph Basics, including a successful live conversational-state test.
 
-- Part 1: LangGraph Basics — NEXT
+**Day 30 project:** `projects/day30_langgraph_basics/`
+
+**Day 30 concepts covered:** `StateGraph`, `TypedDict` state schemas, nodes, edges, `START`/`END`, `compile()`, `invoke()`, conditional routing, model nodes, `MessagesState`, `InMemorySaver`, checkpointers, `thread_id`, and thread-scoped conversation state. Distinguished RAM-based checkpointing from durable persistence, and LangGraph orchestration from chains and agents.
+
+**Day 30 practical confirmation:** User ran `persistent_chat.py` using Gemini via LangGraph. First message introduced Syam and GenAI; the second call with the same thread recalled both correctly: “Your name is Syam, and you are learning Generative AI (GenAI)!” An automatic-function-calling (AFC) advisory warning appeared but did not prevent success. This demonstrates conversation continuity within the running process, not persistence after restarting Python. Terminal confirmation was supplied for `persistent_chat.py`; separate execution output for other example files was not provided.
+
+**Day 30 one-pager:** Completed — LangGraph Basics one-pager.
+
+**Day 31 roadmap:**
+
+- MCP (Model Context Protocol) — NEXT
 
 **Day 16 project status:** LLM Inference & Decoding Playground completed, tested, committed and uploaded. Final verbal project-review questions were intentionally deferred to final interview preparation.
 
@@ -450,7 +460,7 @@ User → Tool-enabled Model → Tool Call → Application Executes Tool
 
 \- Tools
 
-⬜ Day 30
+✅ Day 30
 
 \- LangGraph Basics
 
