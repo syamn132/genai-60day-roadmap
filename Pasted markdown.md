@@ -4,13 +4,13 @@
 
 ## 📌 SINGLE SOURCE OF TRUTH — CURRENT STATUS
 
-**Last updated:** 2026-10-07
+**Last updated:** 2026-10-08
 
-**Overall progress:** Days 1–30 completed.
+**Overall progress:** Days 1–31 completed.
 
 **Current sprint:** 🟣 Sprint 3 — LLM Frameworks
 
-**Next exact step:** Day 31 — MCP (Model Context Protocol)
+**Next exact step:** Day 32 — AI Agents / Agent Loop
 
 **Day 23 status:** Completed — Advanced RAG, Query Expansion, Compression, Reranking.
 
@@ -126,9 +126,69 @@ User → Tool-enabled Model → Tool Call → Application Executes Tool
 
 **Day 30 one-pager:** Completed — LangGraph Basics one-pager.
 
-**Day 31 roadmap:**
+**Day 31 status:** Completed — MCP (Model Context Protocol), including a successful live MCP server/client practical.
 
-- MCP (Model Context Protocol) — NEXT
+**Day 31 project:** `projects/day31_mcp/`
+
+**Day 31 concepts covered:**
+
+- ✅ MCP purpose — open, model-neutral protocol for connecting AI applications to external capabilities.
+- ✅ MCP architecture — Host, Client, Protocol, Server, and external systems.
+- ✅ Core primitives — Tools, Resources, and Prompts.
+- ✅ Tool vs Resource vs Prompt: Tool = DO, Resource = READ, Prompt = GUIDE.
+- ✅ Capability discovery through `list_tools()`, `list_resources()`, and `list_prompts()`.
+- ✅ Tool invocation through `call_tool()`.
+- ✅ Resource access through `read_resource()`.
+- ✅ Prompt retrieval/rendering through `get_prompt()`.
+- ✅ Typed schemas derived from Python type hints and docstrings.
+- ✅ MCP protocol vs MCP Python SDK distinction.
+- ✅ MCP vs direct function/tool calling.
+- ✅ MCP vs REST APIs.
+- ✅ MCP with LangChain, LangGraph, RAG, and future agent workflows.
+- ✅ Transport concepts — stdio for local/subprocess integrations and Streamable HTTP for networked/deployed servers.
+- ✅ MCP security principles — authentication, authorization, input validation, least privilege, auditability, confirmation for risky actions, and secret management.
+
+**Day 31 practical implementation:**
+
+```text
+MCP Client
+    ↓
+MCP Protocol
+    ↓
+MCP Server
+   /   |   \
+Tool Resource Prompt
+```
+
+The learning server exposed:
+
+- Tool: `add(a, b)`
+- Resource: `guide://genai`
+- Prompt: `explain_topic(topic, level)`
+
+**Day 31 live practical confirmation:**
+
+The user ran `projects/day31_mcp/client.py` successfully in the regular `.venv`.
+
+Observed results:
+
+- Protocol version negotiated successfully: `2026-07-28`
+- Tool discovery succeeded: `add`
+- Tool execution succeeded: `125 + 47 = 172`
+- Resource discovery succeeded: `guide://genai`
+- Resource reading returned the GenAI roadmap text
+- Prompt discovery succeeded: `explain_topic`
+- Prompt rendering succeeded for `vector databases` at `beginner` level
+- Typed MCP response objects such as `TextContent`, `TextResourceContents`, and `PromptMessage` were returned correctly
+
+A minor prompt-spacing typo (`Usesimple`) was noted as formatting only and did not affect the MCP integration.
+
+**Day 31 one-pager:** Completed — MCP (Model Context Protocol) one-pager.
+
+**Day 32 roadmap:**
+
+- Part 1: AI Agents — NEXT
+- Part 2: Agent Loop
 
 **Day 16 project status:** LLM Inference & Decoding Playground completed, tested, committed and uploaded. Final verbal project-review questions were intentionally deferred to final interview preparation.
 
@@ -464,7 +524,7 @@ User → Tool-enabled Model → Tool Call → Application Executes Tool
 
 \- LangGraph Basics
 
-⬜ Day 31
+✅ Day 31
 
 \- MCP (Model Context Protocol)
 
