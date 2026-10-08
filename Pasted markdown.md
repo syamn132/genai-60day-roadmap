@@ -6,11 +6,11 @@
 
 **Last updated:** 2026-10-08
 
-**Overall progress:** Days 1–31 completed.
+**Overall progress:** Days 1–32 completed.
 
 **Current sprint:** 🟣 Sprint 3 — LLM Frameworks
 
-**Next exact step:** Day 32 — AI Agents / Agent Loop
+**Next exact step:** Day 33 — Multi-Agent Systems
 
 **Day 23 status:** Completed — Advanced RAG, Query Expansion, Compression, Reranking.
 
@@ -185,10 +185,71 @@ A minor prompt-spacing typo (`Usesimple`) was noted as formatting only and did n
 
 **Day 31 one-pager:** Completed — MCP (Model Context Protocol) one-pager.
 
-**Day 32 roadmap:**
+**Day 32 status:** Completed — AI Agents and Agent Loop, including successful live Gemini agent execution and a successful manually implemented agent loop.
 
-- Part 1: AI Agents — NEXT
-- Part 2: Agent Loop
+**Day 32 project:** `projects/day32_ai_agents/`
+
+**Day 32 learning breakdown:**
+
+- ✅ Part 1: AI Agents — agent vs normal LLM, agent vs chain, agent vs tool, agent vs LangGraph, agent vs MCP, agent components (model, instructions, tools, state, runtime), `create_agent()`, tool selection, agent action space, multi-step tool use, safety boundaries, and when an agent is appropriate.
+- ✅ Part 2: Agent Loop — decide → act → observe → repeat, manual tool-call inspection, tool dispatch, `ToolMessage`, accumulated message state, repeated model calls, tool-call IDs, termination conditions, `MAX_STEPS`, cost/latency implications, tool-error handling, retry limits, human-in-the-loop concepts, and agent-loop evaluation.
+
+**Day 32 Part 1 live practical confirmation:**
+
+The user ran `projects/day32_ai_agents/part1_agent.py` successfully with Gemini `gemini-3.5-flash-lite`.
+
+Observed results included:
+
+- `125 × 47 = 5875`
+- `125 + 47 = 172`
+- `(50 + 25) × 4 = 300`
+- The full agent trace confirmed:
+  - `HumanMessage`
+  - `AIMessage` requesting `add(a=50, b=25)`
+  - `ToolMessage` returning `75`
+  - `AIMessage` requesting `multiply(a=75, b=4)`
+  - `ToolMessage` returning `300`
+  - Final `AIMessage` returning `300` with no further tool calls
+
+This confirmed that the agent dynamically selected the correct tools and executed them in sequence rather than following a hard-coded chain.
+
+**Day 32 Part 2 live practical confirmation:**
+
+The user ran `projects/day32_ai_agents/part2_agent_loop.py` successfully without using the high-level `create_agent()` abstraction.
+
+Observed loop:
+
+```text
+STEP 1
+Model decision → add(50, 25)
+Tool observation → 75
+
+STEP 2
+Model decision → multiply(75, 4)
+Tool observation → 300
+
+STEP 3
+No tool requested
+Final answer → 300
+```
+
+The practical confirmed the manual agent-loop mechanics:
+
+```text
+Current State
+→ Model Decision
+→ Tool Call?
+   ↳ Yes → Execute Tool → Observation → Append ToolMessage → Model Again
+   ↳ No  → Final Answer / Stop
+```
+
+The final model response contained no tool calls, demonstrating the normal termination condition. The run also showed increasing token usage across successive iterations, reinforcing the relationship between more agent steps, larger state, additional model calls, latency, and cost.
+
+**Day 32 one-pagers:** Completed — Part 1 AI Agents and Part 2 Agent Loop. A Day 32 master one-pager has not yet been created.
+
+**Day 33 roadmap:**
+
+- Part 1: Multi-Agent Systems — NEXT
 
 **Day 16 project status:** LLM Inference & Decoding Playground completed, tested, committed and uploaded. Final verbal project-review questions were intentionally deferred to final interview preparation.
 
@@ -528,7 +589,7 @@ A minor prompt-spacing typo (`Usesimple`) was noted as formatting only and did n
 
 \- MCP (Model Context Protocol)
 
-⬜ Day 32
+✅ Day 32
 
 \- AI Agents
 
