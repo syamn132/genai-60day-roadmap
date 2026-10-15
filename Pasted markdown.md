@@ -4,13 +4,13 @@
 
 ## 📌 SINGLE SOURCE OF TRUTH — CURRENT STATUS
 
-**Last updated:** 2026-10-14
+**Last updated:** 2026-10-15
 
-**Overall progress:** Days 1–34 completed.
+**Overall progress:** Days 1–36 completed.
 
-**Current sprint:** 🟣 Sprint 3 — LLM Frameworks
+**Current sprint:** 🟠 Sprint 4 — Backend Engineering
 
-**Next exact step:** Day 35 — FastAPI Basics
+**Next exact step:** Day 37 — PostgreSQL
 
 **Day 23 status:** Completed — Advanced RAG, Query Expansion, Compression, Reranking.
 
@@ -501,9 +501,136 @@ Day 34 — Multi-Agent Assistant Project              ✅
 SPRINT 3 — LLM FRAMEWORKS                           ✅ COMPLETE
 ```
 
-**Day 35 roadmap:**
+**Day 35 status:** Completed — FastAPI Basics, including successful local execution and Swagger testing.
 
-- Part 1: FastAPI Basics — NEXT
+**Day 35 project:** `projects/day35_fastapi_basics/`
+
+**Day 35 learning breakdown:**
+
+- ✅ Why APIs are needed to expose Python/GenAI systems to web, mobile, frontend, and other backend clients.
+- ✅ FastAPI application basics with `FastAPI()`.
+- ✅ FastAPI vs Uvicorn.
+- ✅ HTTP request/response flow.
+- ✅ Routes / endpoints and path operations.
+- ✅ `GET` and `POST`.
+- ✅ Path parameters such as `/hello/{name}`.
+- ✅ Typed path parameters and automatic validation.
+- ✅ Query parameters such as `/topics?limit=2`.
+- ✅ Pydantic `BaseModel` request bodies.
+- ✅ JSON responses.
+- ✅ Automatic validation and error responses.
+- ✅ Swagger UI at `/docs`.
+- ✅ ReDoc at `/redoc`.
+- ✅ OpenAPI schema concept.
+- ✅ Introductory `async def` usage for API endpoints.
+
+**Day 35 practical validation:**
+
+The user confirmed that all planned Day 35 outputs worked correctly:
+
+```text
+GET  /
+GET  /health
+GET  /hello/Syam
+GET  /square/5
+GET  /topics?limit=2
+POST /learn
+```
+
+The `POST /learn` request was tested through Swagger using a structured JSON request body and behaved as expected.
+
+**Day 35 one-pager:** Completed — FastAPI Basics one-pager.
+
+**Day 36 status:** Completed — REST APIs and Dependency Injection.
+
+**Day 36 project:** `projects/day36_rest_dependency_injection/`
+
+**Day 36 Part 1 — REST APIs:**
+
+- ✅ REST as resource-oriented API design.
+- ✅ Resources and predictable noun-based URLs.
+- ✅ CRUD mapping to HTTP methods.
+- ✅ `GET`, `POST`, `PUT`, `PATCH`, and `DELETE`.
+- ✅ Collection vs individual-resource endpoints.
+- ✅ Pydantic create/update/response models.
+- ✅ `response_model` as an API response contract.
+- ✅ Request validation with `Field(...)`.
+- ✅ `HTTPException`.
+- ✅ Meaningful HTTP status codes including `200`, `201`, `204`, `404`, `422`, and production awareness of `400`, `401`, `403`, `409`, and `500`.
+- ✅ `PUT` vs `PATCH`.
+- ✅ `model_dump(exclude_unset=True)` for partial updates.
+- ✅ Query parameters for filtering/configuration.
+- ✅ Stateless request concept.
+- ✅ Safe-method concept.
+- ✅ Idempotency and the difference between `POST` and `PUT`.
+- ✅ API contracts and introductory API versioning concepts.
+
+**Day 36 Part 1 practical validation:**
+
+The complete in-memory Product CRUD API was successfully tested through Swagger:
+
+```text
+POST   /products         → create product → 201
+POST   /products         → create second product → 201
+GET    /products         → list products
+GET    /products/1       → retrieve one product
+PATCH  /products/1       → partial update
+PUT    /products/2       → full replacement
+DELETE /products/1       → 204 No Content
+GET    /products/1       → 404 Product not found
+```
+
+The user confirmed all planned outputs behaved correctly.
+
+**Day 36 Part 2 — Dependency Injection:**
+
+- ✅ Dependency Injection concept — endpoints declare what they need instead of creating dependencies themselves.
+- ✅ FastAPI `Depends()`.
+- ✅ Modern `typing.Annotated` dependency aliases.
+- ✅ Service-layer dependency using `ProductService`.
+- ✅ Reusable dependency functions.
+- ✅ Pagination dependency with query validation.
+- ✅ Dependencies contributing parameters automatically to Swagger/OpenAPI.
+- ✅ Dependency validation before endpoint execution.
+- ✅ Sub-dependency and dependency-graph concepts.
+- ✅ Per-request dependency reuse concept.
+- ✅ Resource lifecycle dependencies using `yield`.
+- ✅ `try/finally` cleanup pattern.
+- ✅ Preview of database-session injection for PostgreSQL/SQLAlchemy.
+- ✅ Preview of authentication/current-user dependencies.
+- ✅ DI benefits for modularity, lower coupling, reuse, and testability.
+
+**Day 36 Part 2 practical validation:**
+
+The user confirmed all planned Dependency Injection tests worked correctly:
+
+```text
+GET /products/2
+→ ProductService dependency injected
+→ Mouse product returned
+
+GET /products?skip=1&limit=2
+→ ProductService dependency resolved
+→ Pagination dependency resolved
+→ expected paginated products returned
+
+GET /products?skip=0&limit=0
+→ dependency validation rejected invalid limit
+→ 422 validation response
+
+GET /resource-demo
+→ [DEPENDENCY] Opening resource
+→ [ENDPOINT] Using resource
+→ [DEPENDENCY] Closing resource
+```
+
+This verified both value injection and setup/use/cleanup lifecycle behavior.
+
+**Day 36 one-pagers:** Completed — Part 1 REST APIs, Part 2 Dependency Injection, plus Day 36 Master one-pager.
+
+**Day 37 roadmap:**
+
+- Part 1: PostgreSQL — NEXT
 
 **Day 16 project status:** LLM Inference & Decoding Playground completed, tested, committed and uploaded. Final verbal project-review questions were intentionally deferred to final interview preparation.
 
@@ -861,11 +988,11 @@ SPRINT 3 — LLM FRAMEWORKS                           ✅ COMPLETE
 
 🟠 Sprint 4 — Backend Engineering
 
-⬜ Day 35
+✅ Day 35
 
 \- FastAPI Basics
 
-⬜ Day 36
+✅ Day 36
 
 \- REST APIs
 
