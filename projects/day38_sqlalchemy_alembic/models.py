@@ -64,6 +64,7 @@ from datetime import datetime
 from decimal import Decimal
 
 from sqlalchemy import (
+    Text,
     CheckConstraint,
     DateTime,
     ForeignKey,
@@ -123,6 +124,11 @@ class Product(Base):
 
     orders: Mapped[list["Order"]] = relationship(
         back_populates="product"
+    )
+
+    description: Mapped[str | None] = mapped_column(
+        Text,
+        nullable=True,
     )
 
     def __repr__(self):

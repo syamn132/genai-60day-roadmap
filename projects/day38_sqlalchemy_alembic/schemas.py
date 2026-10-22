@@ -7,6 +7,10 @@ class ProductCreate(BaseModel):
     name: str = Field(min_length=1, max_length=100)
     price: Decimal = Field(gt=0)
     stock: int = Field(ge=0)
+    description: str | None = Field(
+        default=None,
+        max_length=1000,
+    )
 
 class ProductUpdate(BaseModel):
     name: str | None = Field(
@@ -16,6 +20,10 @@ class ProductUpdate(BaseModel):
     )
     price: Decimal | None = Field(default=None, gt=0)
     stock: int | None = Field(default=None, ge=0)
+    description: str | None = Field(
+        default=None,
+        max_length=1000,
+    )
 
 class ProductRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
@@ -25,3 +33,4 @@ class ProductRead(BaseModel):
     price: Decimal
     stock: int
     created_at: datetime
+    description: str | None
