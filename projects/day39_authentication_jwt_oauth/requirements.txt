@@ -1,0 +1,17 @@
+
+# FastAPI Backend
+fastapi[standard]
+pydantic
+
+# PostgreSQL & ORM
+SQLAlchemy>=2.0,<3.0
+psycopg[binary]>=3.0,<4.0
+
+# Password Hashing
+pwdlib[argon2]
+
+# JWT Authentication
+PyJWT>=2.0,<3.0
+
+# OAuth2 Form Handling
+python-multipart
