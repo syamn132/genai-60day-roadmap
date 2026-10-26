@@ -1,288 +1,243 @@
+"""Update the GenAI roadmap from Day 39 to Day 40 without losing earlier content.
 
-from pathlib import Path
+Run this script from the directory containing your Day 39 Markdown file:
+    python update_roadmap.py
 
-source = Path("Pasted markdown.md")
-output = Path("GenAI_60_Day_Roadmap_Updated_Day38.md")
+Or choose the source explicitly:
+    python update_roadmap.py --source "Pasted markdown_day39.md"
 
-if not source.exists():
-    raise FileNotFoundError(
-        f"Place {source.name} in the same folder as this script."
-    )
-
-content = source.read_text(encoding="utf-8")
-
-# ---------------------------------------
-# STEP 1: UPDATE CURRENT ROADMAP STATUS
-# ---------------------------------------
-
-replacements = {
-    "**Last updated:** 2026-10-21":
-        "**Last updated:** 2026-10-22",
-
-    "**Overall progress:** Days 1–37 completed (61.7%). 23 days remaining.":
-        "**Overall progress:** Days 1–38 completed (63.3%). 22 days remaining.",
-
-    "**Next exact step:** Day 38 — Part 1 SQLAlchemy; Part 2 Alembic.":
-        "**Next exact step:** Day 39 — Part 1 Authentication; Part 2 JWT; Part 3 OAuth.",
-
-    "⬜ Day 38":
-        "✅ Day 38",
-}
-
-for old, new in replacements.items():
-    if content.count(old) != 1:
-        raise ValueError(
-            f"Expected exactly one occurrence of: {old}"
-        )
-    content = content.replace(old, new, 1)
-
-
-# ---------------------------------------
-# STEP 2: PREPARE DAY 38 COMPLETION RECORD
-# ---------------------------------------
-
-day38 = """
-**Day 38 status:** ✅ Completed — SQLAlchemy (Part 1) and Alembic (Part 2).
-
-**Day 38 project:** `projects/day38_sqlalchemy_alembic/`
-
-**Database:** `genai_day37_new`
-
-**Day 38 Part 1 status:** ✅ Completed — SQLAlchemy.
-
-**Day 38 Part 1 topics completed:**
-
-- SQLAlchemy fundamentals: Core vs ORM.
-- ORM purpose and object-relational mapping.
-- PostgreSQL integration with psycopg 3.
-- SQLAlchemy Engine and database connectivity.
-- Connection pooling and pool_pre_ping.
-- DeclarativeBase, Mapped, and mapped_column.
-- PostgreSQL data types and Python type mapping.
-- Primary keys and Identity(always=True).
-- SQLAlchemy Session lifecycle.
-- ORM SELECT, WHERE, ORDER BY, and primary-key lookup.
-- ORM CREATE, READ, UPDATE, and DELETE.
-- session.add(), flush(), commit(), refresh(), and rollback().
-- ORM object lifecycle and change tracking.
-- Transaction rollback and data integrity.
-- Customer, Product, and Order ORM models.
-- Foreign-key relationships and back_populates.
-- One-to-many relationships.
-- selectinload() and N+1 query awareness.
-- FastAPI database dependency injection.
-- Session management using Depends() and yield.
-- Pydantic request and response schemas.
-- PostgreSQL-backed FastAPI CRUD endpoints.
-- Swagger UI endpoint verification.
-- Real-world backend engineering and interview review.
-
-**Day 38 Part 1 project files:**
-
-- `database.py` — SQLAlchemy Engine and database connection.
-- `models.py` — Product, Customer, and Order ORM models.
-- `verify_connection.py` — PostgreSQL connection testing.
-- `orm_read.py` — ORM retrieval and filtering.
-- `orm_crud.py` — ORM CREATE, READ, UPDATE, DELETE.
-- `orm_transactions.py` — transaction and rollback testing.
-- `orm_relationships.py` — related data retrieval.
-- `dependencies.py` — FastAPI Session dependency.
-- `schemas.py` — Pydantic API schemas.
-- `main.py` — database-backed FastAPI Product API.
-
-**Day 38 Part 1 directly verified terminal results:**
-
-- Successfully connected to `genai_day37_new`.
-- Retrieved three existing products.
-- Laptop stock was 13.
-- Mouse stock was 25.
-- Keyboard stock was 15.
-- ORM filtering price > 1000 returned Laptop and Keyboard.
-- session.get(Product, 1) returned Laptop.
-- Created temporary ORM product with ID 5.
-- Read temporary product with stock 5.
-- Updated temporary product stock from 5 to 8.
-- Deleted temporary product.
-- Post-deletion lookup returned None.
-- Original three product records remained unchanged.
-
-**Day 38 transaction verification:**
-
-- Original Laptop stock: 13.
-- Stock after session.flush(): 11.
-- Transaction successfully rolled back.
-- Stock after rollback: 13.
-- Uncommitted stock update was correctly undone.
-
-**Day 38 relationship verification:**
-
-- Arjun — Bengaluru — Laptop — quantity 1.
-- Arjun order total: 65000.00.
-- Priya — Mysuru — Mouse — quantity 3.
-- Priya order total: 1500.00.
-- Arjun order count: 1.
-- Priya order count: 1.
-
-**Day 38 FastAPI practicals:** ✅ User-confirmed completed.
-
-- GET /products — read all products.
-- POST /products — create product.
-- GET /products/{product_id} — read one product.
-- PATCH /products/{product_id} — update product.
-- DELETE /products/{product_id} — delete practice product.
-- GET after deletion — 404 verification.
-- Original PostgreSQL records preserved.
-
-**Day 38 Part 1 Git status:**
-
-- Git commit: `e5a723d`.
-- Commit message: `Day 38 Part 1 Compelted`.
-- Successfully pushed to GitHub main branch.
-
-**Day 38 Part 2 status:** ✅ Completed — Alembic.
-
-**Day 38 Part 2 topics completed:**
-
-- Database schema version control.
-- Why schema migrations are necessary.
-- SQLAlchemy versus Alembic responsibilities.
-- Alembic installation and initialization.
-- alembic.ini and env.py configuration.
-- SQLAlchemy Base.metadata integration.
-- Alembic versions directory and revision files.
-- Baseline revision for an existing database.
-- alembic stamp head.
-- Migration upgrade() and downgrade() functions.
-- Adding a nullable description column.
-- ALTER TABLE concepts.
-- alembic revision and revision history.
-- alembic upgrade head.
-- alembic downgrade -1.
-- Checking the current revision.
-- Reapplying migrations.
-- Updating SQLAlchemy ORM models after migration.
-- Updating FastAPI Pydantic schemas.
-- Preserving existing database records.
-- Backup and migration safety considerations.
-
-**Day 38 Part 2 practical verification:**
-
-- Alembic successfully connected to PostgreSQL.
-- Database schema migration was applied.
-- `alembic current` returned `b35d2f0f74e7 (head)`.
-- The products table contained the description column.
-- Laptop, Mouse, and Keyboard remained intact.
-- Existing description values were NULL.
-- Downgrade and re-upgrade practicals were user-confirmed.
-- FastAPI description-field API tests were user-confirmed.
-
-**Day 38 troubleshooting:**
-
-- Diagnosed PostgreSQL 17 startup failure.
-- Identified a stale postmaster.pid reference.
-- Verified the recorded PID was assigned to MacDroid,
-  rather than a running PostgreSQL server.
-- PostgreSQL became accessible again for Alembic testing.
-
-**Day 38 one-pagers:** ✅ Completed — Two visual revision
-infographics covering SQLAlchemy, Alembic, ORM operations,
-sessions, relationships, transactions, FastAPI integration,
-database migrations, and practical verification.
-
-**Day 38 learning outcome:**
-
-Integrated Python and FastAPI with the existing PostgreSQL
-database using SQLAlchemy ORM. Implemented and verified
-persistent CRUD, transaction rollback, and ORM relationships.
-Used Alembic to version and evolve the database schema
-while preserving existing records.
-
-**Day 39 roadmap:**
-
-- Part 1: Authentication — NEXT.
-- Part 2: JWT — Pending.
-- Part 3: OAuth — Pending.
-
+The script creates GenAI_60_Day_Roadmap_Updated_Day40.md; it never overwrites
+its source or an existing output file, and it refuses unexpected input versions.
 """
 
+from __future__ import annotations
 
-# ---------------------------------------
-# STEP 3: REPLACE DAY 38 ROADMAP PLACEHOLDER
-# ---------------------------------------
+import argparse
+from pathlib import Path
 
-old_section = (
-    "**Day 38 roadmap:**\n"
-    "- Part 1: SQLAlchemy — NEXT.\n"
-    "- Part 2: Alembic — Pending."
+DEFAULT_SOURCES = (
+    "Pasted markdown_day39.md",
+    "GenAI_60_Day_Roadmap_Updated_Day39.md",
+    "Pasted markdown.md",
+)
+DEFAULT_OUTPUT = "GenAI_60_Day_Roadmap_Updated_Day40.md"
+
+
+DAY40_RECORD = """**Day 40 status:** ✅ Completed — Redis (Part 1) and Background Tasks (Part 2).
+
+**Day 40 project:** `projects/day40_redis_background_tasks/`
+
+**Day 40 Part 1 status:** ✅ Completed — Redis, including verified local server and Python cache-aside practicals.
+
+**Day 40 Part 1 concepts and implementation:**
+
+- Redis as an in-memory data store; how it complements PostgreSQL as the primary database.
+- Keys, values, strings, TTL/expiration, cache hits, cache misses, and cache invalidation.
+- Redis CLI operations: `PING`, `SET`, `GET`, `TTL`, and `DEL`.
+- Redis Python client (`redis-py`) and `decode_responses=True`.
+- Cache-aside pattern: check Redis → on miss read source data → cache with TTL → return response.
+- Cache invalidation after a source-data update, plus awareness of stale values.
+- Redis use cases in backend/GenAI systems: caching, rate limits, temporary state, and job-status storage.
+
+**Day 40 Redis installation and troubleshooting:**
+
+- Environment: Intel Mac running macOS Sequoia 15.7.8.
+- Homebrew Redis installation attempted to build many dependencies from source and failed at GMP `autoreconf`; Redis was not installed through Homebrew.
+- Installed MacPorts 2.12.7 and Redis 8.8.0_0 successfully using `sudo port install redis`.
+- Started the managed service using `sudo port load redis`.
+- Verified `/opt/local/bin/redis-cli ping` returned `PONG`.
+- Installed Python `redis` client 8.1.0 in the existing `.venv`.
+
+**Day 40 Part 1 directly verified practical results:**
+
+```text
+redis-cli ping                          → PONG
+SET day40:test "Hello Redis" EX 120     → OK
+GET day40:test                          → "Hello Redis"
+TTL day40:test                          → 120 seconds in the captured run
+DEL day40:test                          → (integer) 1
+
+python redis_demo.py:
+  PING True; SET and GET succeeded; TTL=120; DEL=1; deleted value=None.
+
+python cache_aside_demo.py:
+  First request: CACHE MISS → simulated database read → cache write (60s).
+  Second request: CACHE HIT → cached product returned.
+  Updated product stock: 10 → 15.
+  After invalidation: CACHE MISS → refreshed stock=15.
+  Final output: CACHE-ASIDE TEST COMPLETED.
+```
+
+**Day 40 Part 2 status:** ✅ Completed — FastAPI Background Tasks with Redis job-status tracking.
+
+**Day 40 Part 2 concepts and implementation:**
+
+- FastAPI `BackgroundTasks` and registering synchronous tasks using `background_tasks.add_task()`.
+- HTTP 202 Accepted: request accepted for processing; not a guarantee of task completion.
+- In-process task execution after the response, using Starlette/FastAPI execution facilities.
+- Simulated report generation with `time.sleep(6)`; background start/completion logs.
+- Unique job IDs generated with `uuid4().hex`.
+- Redis hash status tracking: `queued` → `running` → `completed` (or `failed`).
+- Redis hash operations and one-hour job-status TTL.
+- API endpoints: `GET /health`, `POST /reports`, `GET /reports/{job_id}`.
+- Missing job handling with HTTP 404.
+- Production limitation: `BackgroundTasks` runs in the API process; Redis storing status does **not** create a durable task queue. Dedicated queues/workers (such as Celery or RQ) are appropriate for heavier or restart-safe workloads.
+
+**Day 40 Part 2 directly verified practical results:**
+
+- `GET /health` → HTTP 200, Redis connection working.
+- `POST /reports` with topic `RAG Architecture` → HTTP 202 Accepted.
+- Terminal trace: `BACKGROUND STARTED` followed by `BACKGROUND COMPLETED` for the same job ID.
+- `GET /reports/{job_id}` for the real job → HTTP 200.
+- Corrected Swagger test: `GET /reports/not-a-real-job` → HTTP 404 with `{"detail": "Job not found"}`.
+- An initial Swagger attempt included `GET /reports/` inside the `job_id` parameter, yielding a routing-level 404; correcting the parameter verified the application's own 404 handling.
+- The full successful job-status JSON body was not separately pasted; task completion is supported by server logs and the user-confirmed practicals.
+
+**Day 40 project files and responsibilities:**
+
+- `redis_demo.py` — basic Redis connection, SET/GET/TTL/DEL demonstration.
+- `cache_aside_demo.py` — cache miss/hit/invalidation with a simulated Python-dictionary database.
+- `tasks.py` — background report processing and Redis job-status helpers.
+- `main.py` — FastAPI health, report-submission, and job-status endpoints.
+- `requirements.txt` — `fastapi[standard]` and `redis`.
+- `README.md` — documentation file created for the Day 40 project.
+
+**Day 40 one-pagers:** ✅ Completed — three separate revision images: Part 1 Redis, Part 2 Background Tasks, and Day 40 Master one-pager.
+
+**Day 40 learning outcome:** Implemented Redis key-value operations and a cache-aside example, then integrated FastAPI BackgroundTasks with Redis-based job-status lookup. Verified HTTP 200/202/404, the background execution trace, and cache invalidation behavior.
+
+**Day 41 roadmap:**
+
+- Part 1: Logging — NEXT.
+- Part 2: Monitoring — Pending.
+- Part 3: Error Handling — Pending."""
+
+
+REPLACEMENTS = (
+    (
+        "**Last updated:** 2026-10-23",
+        "**Last updated:** 2026-10-26",
+    ),
+    (
+        "**Overall progress:** Days 1–39 completed (65.0%). 21 days remaining.",
+        "**Overall progress:** Days 1–40 completed (66.7%). 20 days remaining.",
+    ),
+    (
+        "**Next exact step:** Day 40 — Part 1 Redis; Part 2 Background Tasks.",
+        "**Next exact step:** Day 41 — Part 1 Logging; Part 2 Monitoring; Part 3 Error Handling.",
+    ),
+    (
+        "⬜ Day 40",
+        "✅ Day 40",
+    ),
+    (
+        "**Day 40 roadmap:**\n\n- Part 1: Redis — NEXT.\n- Part 2: Background Tasks — Pending.",
+        DAY40_RECORD,
+    ),
 )
 
-if content.count(old_section) != 1:
-    raise ValueError(
-        "Could not find exactly one original Day 38 section."
+
+def replace_once(content: str, old: str, new: str) -> str:
+    count = content.count(old)
+    if count != 1:
+        raise ValueError(
+            f"Expected exactly one occurrence, found {count}: {old[:100]!r}. "
+            "Use the unmodified Day 39 Markdown as input."
+        )
+    return content.replace(old, new, 1)
+
+
+def find_source(source_argument: Path | None) -> Path:
+    if source_argument is not None:
+        if not source_argument.is_file():
+            raise FileNotFoundError(f"Day 39 Markdown not found: {source_argument}")
+        return source_argument
+
+    for filename in DEFAULT_SOURCES:
+        candidate = Path(filename)
+        if candidate.is_file():
+            return candidate
+
+    raise FileNotFoundError(
+        "Place the Day 39 Markdown beside this script or provide --source FILE. "
+        f"Tried: {', '.join(DEFAULT_SOURCES)}"
     )
 
-content = content.replace(
-    old_section,
-    day38.strip(),
-    1,
-)
 
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Safely advance the complete GenAI Markdown roadmap to Day 40."
+    )
+    parser.add_argument("--source", type=Path, default=None,
+                        help="Source Day 39 Markdown file")
+    parser.add_argument("--output", type=Path, default=Path(DEFAULT_OUTPUT),
+                        help="New output Markdown file")
+    args = parser.parse_args()
 
-# ---------------------------------------
-# STEP 4: VERIFY ALL UPDATES
-# ---------------------------------------
+    source = find_source(args.source)
+    output: Path = args.output
 
-checks = [
-    "Days 1–38 completed (63.3%)",
-    "✅ Day 37",
-    "✅ Day 38",
-    "⬜ Day 39",
-    "**Day 38 status:** ✅ Completed",
-    "**Day 38 Part 1 status:** ✅ Completed",
-    "**Day 38 Part 2 status:** ✅ Completed",
-    "**Day 38 one-pagers:** ✅ Completed",
-    "genai_day37_new",
-    "b35d2f0f74e7 (head)",
-    "**Day 39 roadmap:**",
-]
-
-for item in checks:
-    if item not in content:
-        raise AssertionError(
-            f"Verification failed: {item}"
+    if source.resolve() == output.resolve():
+        raise ValueError("Source and output must be different files.")
+    if output.exists():
+        raise FileExistsError(
+            f"{output} already exists. Refusing to overwrite it. "
+            "Choose a different --output or move the existing file."
         )
 
-assert "**Day 37 status:**" in content
-assert "**Day 36 status:**" in content
-assert "Day 39 — Part 1 Authentication" in content
+    before = source.read_text(encoding="utf-8")
+    if "**Day 39 status:** ✅ Completed" not in before:
+        raise ValueError("Source does not contain a completed Day 39 record.")
+    if "**Day 40 status:** ✅ Completed" in before:
+        raise ValueError("Day 40 is already recorded as completed.")
+    if "✅ Day 39" not in before or "⬜ Day 41" not in before:
+        raise ValueError("Unexpected roadmap checklist status in source.")
+
+    after = before
+    for old, new in REPLACEMENTS:
+        after = replace_once(after, old, new)
+
+    # Explicit verification: previous days remain present, and no other changes
+    # were made outside the five intentional replacements.
+    for marker in (
+        "**Day 25 status:**", "**Day 34 status:**", "**Day 35 status:**",
+        "**Day 36 status:**", "**Day 37 status:**", "**Day 38 status:**",
+        "**Day 39 status:** ✅ Completed", "**Day 40 status:** ✅ Completed",
+        "**Day 40 Part 1 status:** ✅ Completed",
+        "**Day 40 Part 2 status:** ✅ Completed",
+        "**Day 40 one-pagers:** ✅ Completed",
+        "**Day 41 roadmap:**", "✅ Day 40", "⬜ Day 41",
+        "**Overall progress:** Days 1–40 completed (66.7%). 20 days remaining.",
+    ):
+        if marker not in after:
+            raise AssertionError(f"Post-update verification failed: {marker}")
+
+    reverse = after
+    for old, new in reversed(REPLACEMENTS):
+        reverse = replace_once(reverse, new, old)
+    if reverse != before:
+        raise AssertionError("Integrity check failed: unintended content changed.")
+
+    output.parent.mkdir(parents=True, exist_ok=True)
+    # 'x' mode prevents accidental overwrite, including at write time.
+    with output.open("x", encoding="utf-8", newline="") as f:
+        f.write(after)
+
+    print("=" * 57)
+    print("DAY 40 ROADMAP UPDATE SUCCESSFUL")
+    print("=" * 57)
+    print(f"Source (unchanged): {source.resolve()}")
+    print(f"New output:         {output.resolve()}")
+    print(f"Original lines:     {len(before.splitlines())}")
+    print(f"Updated lines:      {len(after.splitlines())}")
+    print("Progress:           40/60 days (66.7%) — 20 remaining")
+    print("Part 1:             Redis — completed")
+    print("Part 2:             Background Tasks — completed")
+    print("One-pagers:         3 completed")
+    print("Next:               Day 41 Logging / Monitoring / Error Handling")
+    print("Integrity:          Prior content preserved; no original overwritten")
+    print("=" * 57)
 
 
-# ---------------------------------------
-# STEP 5: WRITE UPDATED MARKDOWN
-# ---------------------------------------
-
-if output.exists():
-    raise FileExistsError(
-        f"{output.name} already exists. "
-        "Rename the existing output before rerunning."
-    )
-
-output.write_text(content, encoding="utf-8")
-
-assert output.exists()
-assert output.stat().st_size > 0
-
-print()
-print("=" * 55)
-print("DAY 38 ROADMAP UPDATE SUCCESSFUL")
-print("=" * 55)
-print(f"Created: {output.resolve()}")
-print(f"Size: {output.stat().st_size:,} bytes")
-print("Progress: Days 1–38 completed (63.3%)")
-print("Remaining: 22 days")
-print("Day 38 Part 1: SQLAlchemy completed")
-print("Day 38 Part 2: Alembic completed")
-print("Day 38 one-pagers: completed")
-print("Next: Day 39 — Authentication, JWT, OAuth")
-print("Original Markdown file preserved.")
-print("=" * 55)
+if __name__ == "__main__":
+    main()
