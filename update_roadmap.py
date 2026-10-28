@@ -1,242 +1,240 @@
-"""Update the GenAI roadmap from Day 39 to Day 40 without losing earlier content.
+#!/usr/bin/env python3
+"""Update the verified Day 40 SSOT markdown through completed Day 41.
 
-Run this script from the directory containing your Day 39 Markdown file:
+Usage:
     python update_roadmap.py
+    python update_roadmap.py --source "/path/to/Pasted markdown_day40.md"
 
-Or choose the source explicitly:
-    python update_roadmap.py --source "Pasted markdown_day39.md"
-
-The script creates GenAI_60_Day_Roadmap_Updated_Day40.md; it never overwrites
-its source or an existing output file, and it refuses unexpected input versions.
+The input is never modified. The script refuses to overwrite its output,
+requires the precise expected Day 40 version, and checks retention of prior days.
 """
 
-from __future__ import annotations
-
-import argparse
+from argparse import ArgumentParser
+from datetime import date
 from pathlib import Path
 
-DEFAULT_SOURCES = (
-    "Pasted markdown_day39.md",
-    "GenAI_60_Day_Roadmap_Updated_Day39.md",
-    "Pasted markdown.md",
-)
-DEFAULT_OUTPUT = "GenAI_60_Day_Roadmap_Updated_Day40.md"
+DEFAULT_CANDIDATES = [
+    "Pasted markdown_day40.md",
+    "GenAI_60_Day_Roadmap_Updated_Day40.md",
+]
+DEFAULT_OUTPUT = "GenAI_60_Day_Roadmap_Updated_Day41.md"
 
+DAY41_RECORD = """**Day 41 status:** ✅ Completed — Logging (Part 1), Monitoring (Part 2), and Error Handling (Part 3).
 
-DAY40_RECORD = """**Day 40 status:** ✅ Completed — Redis (Part 1) and Background Tasks (Part 2).
+**Day 41 project:** `projects/day41_logging_monitoring_error_handling/`
 
-**Day 40 project:** `projects/day40_redis_background_tasks/`
+**Day 41 Part 1 status:** ✅ Completed — Python logging and FastAPI request logging.
 
-**Day 40 Part 1 status:** ✅ Completed — Redis, including verified local server and Python cache-aside practicals.
+**Day 41 Part 1 concepts and implementation:**
 
-**Day 40 Part 1 concepts and implementation:**
+- Python `logging` versus ad-hoc `print()`; DEBUG, INFO, WARNING, ERROR, CRITICAL.
+- Named application logger, severity thresholds, formatters, and console/file handlers.
+- `RotatingFileHandler` writing to `logs/app.log` with a bounded file size and backup retention.
+- `logger.error()` versus `logger.exception()` with traceback.
+- FastAPI HTTP middleware for request correlation IDs, HTTP methods/paths/statuses and elapsed milliseconds.
+- Avoid logging secrets, credentials, tokens and sensitive request data.
+- Repository `.gitignore` uses `*.log` and a Day 41 log-directory exclusion.
 
-- Redis as an in-memory data store; how it complements PostgreSQL as the primary database.
-- Keys, values, strings, TTL/expiration, cache hits, cache misses, and cache invalidation.
-- Redis CLI operations: `PING`, `SET`, `GET`, `TTL`, and `DEL`.
-- Redis Python client (`redis-py`) and `decode_responses=True`.
-- Cache-aside pattern: check Redis → on miss read source data → cache with TTL → return response.
-- Cache invalidation after a source-data update, plus awareness of stale values.
-- Redis use cases in backend/GenAI systems: caching, rate limits, temporary state, and job-status storage.
+**Day 41 Part 1 practical verification:**
 
-**Day 40 Redis installation and troubleshooting:**
+- `logging_demo.py` exercised normal log severities and captured a deliberate `ZeroDivisionError` traceback.
+- Saved `logs/app.log` showed DEBUG events, request timing, statuses and request IDs.
+- `GET /health` → HTTP 200.
+- `GET /products/1` → HTTP 200.
+- `GET /products/99` → HTTP 404 with a warning log.
+- `GET /logging-demo` → HTTP 200 with INFO, WARNING and simulated ERROR events.
+- Terminal and file logs showed request IDs and millisecond request durations.
 
-- Environment: Intel Mac running macOS Sequoia 15.7.8.
-- Homebrew Redis installation attempted to build many dependencies from source and failed at GMP `autoreconf`; Redis was not installed through Homebrew.
-- Installed MacPorts 2.12.7 and Redis 8.8.0_0 successfully using `sudo port install redis`.
-- Started the managed service using `sudo port load redis`.
-- Verified `/opt/local/bin/redis-cli ping` returned `PONG`.
-- Installed Python `redis` client 8.1.0 in the existing `.venv`.
+**Day 41 Part 2 status:** ✅ Completed — Prometheus-style monitoring instrumentation. The five practical checkpoints were user-confirmed.
 
-**Day 40 Part 1 directly verified practical results:**
+**Day 41 Part 2 concepts and implementation:**
+
+- Difference between logs, metrics and traces; four signals: latency, traffic, errors and saturation.
+- Prometheus `/metrics` HTTP exposition via the Python `prometheus-client`.
+- Request Counter: `day41_http_requests_total` with method, route template and status-code labels.
+- Latency Histogram: `day41_http_request_duration_seconds` with bucket, sum and count measurements.
+- Existing middleware extended with `.inc()` and `.observe(duration_seconds)` in `finally`.
+- Dynamic route templates used instead of per-user or per-resource IDs to limit label cardinality.
+- `/slow?delay_ms=500` introduced a controlled latency test.
+- Local process metrics reset on restart; multi-worker and production security limitations discussed.
+
+**Day 41 Part 2 practical verification:**
+
+- Monitoring dependencies installed; previous logging endpoints kept working.
+- `/metrics` exposed HTTP request counters and latency histograms.
+- Additional `/health` calls increased the request count.
+- `/slow?delay_ms=500` produced a latency observation.
+- Part 2's original five checks were reported successful by the user.
+- Later direct terminal inspection confirmed counters for actual HTTP 200, 400, 404, 409, 422 and 500 requests.
+
+**Day 41 Part 3 status:** ✅ Completed — Custom FastAPI exception handling, safe errors and integrated observability.
+
+**Day 41 Part 3 concepts and implementation:**
+
+- Controlled application errors versus unexpected failures.
+- HTTP status semantics: 200, 400, 401, 403, 404, 409, 422, 429, 500 and 503.
+- Reusable `AppError` for application/business conditions.
+- Specialized handlers for `StarletteHTTPException`, `RequestValidationError`, and unexpected `Exception`.
+- Standardized JSON error envelope: code, safe message, request_id, timestamp, and safe validation metadata when relevant.
+- Request ID attached to `request.state` and reused in response header/body and application logs.
+- Validation details limited to parameter locations and error types; no raw input/secrets exposed.
+- Unexpected 500 response sanitized while the real traceback was preserved in logs.
+- Logging and Prometheus counter/histogram recording integrated with error responses.
+- Deliberate `/unhandled-demo` route used for a local-only exception test, not deployment.
+
+**Day 41 Part 3 directly verified practical results (2026-10-27):**
 
 ```text
-redis-cli ping                          → PONG
-SET day40:test "Hello Redis" EX 120     → OK
-GET day40:test                          → "Hello Redis"
-TTL day40:test                          → 120 seconds in the captured run
-DEL day40:test                          → (integer) 1
-
-python redis_demo.py:
-  PING True; SET and GET succeeded; TTL=120; DEL=1; deleted value=None.
-
-python cache_aside_demo.py:
-  First request: CACHE MISS → simulated database read → cache write (60s).
-  Second request: CACHE HIT → cached product returned.
-  Updated product stock: 10 → 15.
-  After invalidation: CACHE MISS → refreshed stock=15.
-  Final output: CACHE-ASIDE TEST COMPLETED.
+GET /divide?a=10&b=2     → HTTP 200, result=5.0
+GET /divide?a=10&b=0     → HTTP 400, code=DIVISION_BY_ZERO
+GET /conflict-demo       → HTTP 409, code=RESOURCE_CONFLICT
+GET /products/abc        → HTTP 422, code=VALIDATION_ERROR, field=path.product_id, type=int_parsing
+GET /products/99         → HTTP 404, code=HTTP_404
+GET /unhandled-demo      → HTTP 500, code=INTERNAL_SERVER_ERROR
 ```
 
-**Day 40 Part 2 status:** ✅ Completed — FastAPI Background Tasks with Redis job-status tracking.
+- HTTP error responses included safe messages, `X-Request-ID` header, matching JSON request IDs and timestamps.
+- The unexpected error response did not expose the internal Python `RuntimeError`; the server log contained a full traceback and `request_failed` event.
+- The `Exception in ASGI application` traceback was expected for the deliberately unhandled local test.
+- `tail -n 40 logs/app.log` worked after changing into the Day 41 project folder; the initial attempt from repository root failed only due to relative path.
+- Prometheus request-counter output contained real status-code series for 200, 400, 404, 409, 422 and 500.
+- `route="unmatched"` appeared for non-application/missing routes; not a failure.
 
-**Day 40 Part 2 concepts and implementation:**
+**Day 41 project files and responsibilities:**
 
-- FastAPI `BackgroundTasks` and registering synchronous tasks using `background_tasks.add_task()`.
-- HTTP 202 Accepted: request accepted for processing; not a guarantee of task completion.
-- In-process task execution after the response, using Starlette/FastAPI execution facilities.
-- Simulated report generation with `time.sleep(6)`; background start/completion logs.
-- Unique job IDs generated with `uuid4().hex`.
-- Redis hash status tracking: `queued` → `running` → `completed` (or `failed`).
-- Redis hash operations and one-hour job-status TTL.
-- API endpoints: `GET /health`, `POST /reports`, `GET /reports/{job_id}`.
-- Missing job handling with HTTP 404.
-- Production limitation: `BackgroundTasks` runs in the API process; Redis storing status does **not** create a durable task queue. Dedicated queues/workers (such as Celery or RQ) are appropriate for heavier or restart-safe workloads.
+- `logging_config.py` — logger configuration, console/file handlers, formatter, file rotation.
+- `logging_demo.py` — log-severity and exception-traceback exercise.
+- `monitoring.py` — Prometheus Counter, Histogram and metrics-response helper.
+- `error_handling.py` — custom exception types, standardized error responses and handlers.
+- `main.py` — FastAPI routes, combined logging/monitoring middleware and error demos.
+- `requirements.txt` — `fastapi[standard]`, `prometheus-client`.
+- `README.md` — project documentation.
+- `logs/app.log` — generated local application logs, excluded from Git.
 
-**Day 40 Part 2 directly verified practical results:**
+**Day 41 one-pagers:** ✅ Completed — four separate infographic PNGs:
+- `Day41_Part1_Logging_OnePager.png`
+- `Day41_Part2_Monitoring_OnePager.png`
+- `Day41_Part3_Error_Handling_OnePager.png`
+- `Day41_Master_OnePager.png`
 
-- `GET /health` → HTTP 200, Redis connection working.
-- `POST /reports` with topic `RAG Architecture` → HTTP 202 Accepted.
-- Terminal trace: `BACKGROUND STARTED` followed by `BACKGROUND COMPLETED` for the same job ID.
-- `GET /reports/{job_id}` for the real job → HTTP 200.
-- Corrected Swagger test: `GET /reports/not-a-real-job` → HTTP 404 with `{"detail": "Job not found"}`.
-- An initial Swagger attempt included `GET /reports/` inside the `job_id` parameter, yielding a routing-level 404; correcting the parameter verified the application's own 404 handling.
-- The full successful job-status JSON body was not separately pasted; task completion is supported by server logs and the user-confirmed practicals.
+**Day 41 learning outcome:** Implemented and verified FastAPI application logging, request IDs, rotating file logs, Prometheus counters and histograms, middleware instrumentation, business/validation exception handlers, and safe correlated API error responses.
 
-**Day 40 project files and responsibilities:**
+**Day 42 roadmap:**
 
-- `redis_demo.py` — basic Redis connection, SET/GET/TTL/DEL demonstration.
-- `cache_aside_demo.py` — cache miss/hit/invalidation with a simulated Python-dictionary database.
-- `tasks.py` — background report processing and Redis job-status helpers.
-- `main.py` — FastAPI health, report-submission, and job-status endpoints.
-- `requirements.txt` — `fastapi[standard]` and `redis`.
-- `README.md` — documentation file created for the Day 40 project.
-
-**Day 40 one-pagers:** ✅ Completed — three separate revision images: Part 1 Redis, Part 2 Background Tasks, and Day 40 Master one-pager.
-
-**Day 40 learning outcome:** Implemented Redis key-value operations and a cache-aside example, then integrated FastAPI BackgroundTasks with Redis-based job-status lookup. Verified HTTP 200/202/404, the background execution trace, and cache invalidation behavior.
-
-**Day 41 roadmap:**
-
-- Part 1: Logging — NEXT.
-- Part 2: Monitoring — Pending.
-- Part 3: Error Handling — Pending."""
+- Sprint 4 project: Production Backend — NEXT.
+- Integrate FastAPI, PostgreSQL, SQLAlchemy, authentication, Redis caching, background processing, logging, monitoring and error handling.
+"""
 
 
-REPLACEMENTS = (
-    (
-        "**Last updated:** 2026-10-23",
-        "**Last updated:** 2026-10-26",
-    ),
-    (
-        "**Overall progress:** Days 1–39 completed (65.0%). 21 days remaining.",
-        "**Overall progress:** Days 1–40 completed (66.7%). 20 days remaining.",
-    ),
-    (
-        "**Next exact step:** Day 40 — Part 1 Redis; Part 2 Background Tasks.",
-        "**Next exact step:** Day 41 — Part 1 Logging; Part 2 Monitoring; Part 3 Error Handling.",
-    ),
-    (
-        "⬜ Day 40",
-        "✅ Day 40",
-    ),
-    (
-        "**Day 40 roadmap:**\n\n- Part 1: Redis — NEXT.\n- Part 2: Background Tasks — Pending.",
-        DAY40_RECORD,
-    ),
-)
-
-
-def replace_once(content: str, old: str, new: str) -> str:
+def replace_exact(content: str, old: str, new: str) -> str:
     count = content.count(old)
     if count != 1:
-        raise ValueError(
-            f"Expected exactly one occurrence, found {count}: {old[:100]!r}. "
-            "Use the unmodified Day 39 Markdown as input."
-        )
+        raise ValueError(f"Expected exactly 1 occurrence, found {count}: {old[:100]!r}")
     return content.replace(old, new, 1)
 
 
-def find_source(source_argument: Path | None) -> Path:
-    if source_argument is not None:
-        if not source_argument.is_file():
-            raise FileNotFoundError(f"Day 39 Markdown not found: {source_argument}")
-        return source_argument
-
-    for filename in DEFAULT_SOURCES:
-        candidate = Path(filename)
-        if candidate.is_file():
-            return candidate
-
-    raise FileNotFoundError(
-        "Place the Day 39 Markdown beside this script or provide --source FILE. "
-        f"Tried: {', '.join(DEFAULT_SOURCES)}"
-    )
-
-
-def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Safely advance the complete GenAI Markdown roadmap to Day 40."
-    )
-    parser.add_argument("--source", type=Path, default=None,
-                        help="Source Day 39 Markdown file")
-    parser.add_argument("--output", type=Path, default=Path(DEFAULT_OUTPUT),
-                        help="New output Markdown file")
+def main():
+    parser = ArgumentParser(description=__doc__)
+    parser.add_argument("--source", type=Path, help="Day 40 roadmap markdown")
+    parser.add_argument("--output", type=Path, help="New Day 41 markdown path")
     args = parser.parse_args()
 
-    source = find_source(args.source)
-    output: Path = args.output
-
+    if args.source is not None:
+        source = args.source
+    else:
+        source = next((Path(name) for name in DEFAULT_CANDIDATES
+                       if Path(name).is_file()), None)
+        if source is None:
+            raise FileNotFoundError(
+                f"Put the Day 40 markdown beside this script: "
+                f"{', '.join(DEFAULT_CANDIDATES)}"
+            )
+    output = args.output or source.parent / DEFAULT_OUTPUT
+    if not source.is_file():
+        raise FileNotFoundError(source)
     if source.resolve() == output.resolve():
-        raise ValueError("Source and output must be different files.")
+        raise ValueError("Input and output paths must differ.")
     if output.exists():
-        raise FileExistsError(
-            f"{output} already exists. Refusing to overwrite it. "
-            "Choose a different --output or move the existing file."
-        )
+        raise FileExistsError(f"Output already exists, refusing to overwrite: {output}")
 
-    before = source.read_text(encoding="utf-8")
-    if "**Day 39 status:** ✅ Completed" not in before:
-        raise ValueError("Source does not contain a completed Day 39 record.")
-    if "**Day 40 status:** ✅ Completed" in before:
-        raise ValueError("Day 40 is already recorded as completed.")
-    if "✅ Day 39" not in before or "⬜ Day 41" not in before:
-        raise ValueError("Unexpected roadmap checklist status in source.")
+    original = source.read_text(encoding="utf-8")
+    updated = original
 
-    after = before
-    for old, new in REPLACEMENTS:
-        after = replace_once(after, old, new)
+    replacements = {
+        "**Last updated:** 2026-10-26":
+            "**Last updated:** 2026-10-27",
+        "**Overall progress:** Days 1–40 completed (66.7%). 20 days remaining.":
+            "**Overall progress:** Days 1–41 completed (68.3%). 19 days remaining.",
+        "**Next exact step:** Day 41 — Part 1 Logging; Part 2 Monitoring; Part 3 Error Handling.":
+            "**Next exact step:** Day 42 — Sprint 4 Project: Production Backend.",
+        "⬜ Day 41":
+            "✅ Day 41",
+    }
+    for old, new in replacements.items():
+        updated = replace_exact(updated, old, new)
 
-    # Explicit verification: previous days remain present, and no other changes
-    # were made outside the five intentional replacements.
-    for marker in (
-        "**Day 25 status:**", "**Day 34 status:**", "**Day 35 status:**",
-        "**Day 36 status:**", "**Day 37 status:**", "**Day 38 status:**",
-        "**Day 39 status:** ✅ Completed", "**Day 40 status:** ✅ Completed",
-        "**Day 40 Part 1 status:** ✅ Completed",
-        "**Day 40 Part 2 status:** ✅ Completed",
-        "**Day 40 one-pagers:** ✅ Completed",
-        "**Day 41 roadmap:**", "✅ Day 40", "⬜ Day 41",
-        "**Overall progress:** Days 1–40 completed (66.7%). 20 days remaining.",
-    ):
-        if marker not in after:
-            raise AssertionError(f"Post-update verification failed: {marker}")
+    placeholder = (
+        "**Day 41 roadmap:**\n\n"
+        "- Part 1: Logging — NEXT.\n"
+        "- Part 2: Monitoring — Pending.\n"
+        "- Part 3: Error Handling — Pending."
+    )
+    updated = replace_exact(updated, placeholder, DAY41_RECORD.strip())
 
-    reverse = after
-    for old, new in reversed(REPLACEMENTS):
-        reverse = replace_once(reverse, new, old)
-    if reverse != before:
-        raise AssertionError("Integrity check failed: unintended content changed.")
+    must_keep = [
+        "**Day 39 status:** ✅ Completed",
+        "**Day 40 status:** ✅ Completed",
+        "Day 40 Part 1 directly verified practical results",
+        "Day 40 Part 2 directly verified practical results",
+        "🟠 Sprint 4 — Backend Engineering",
+        "⬜ Day 42",
+        "⬜ Day 60",
+        "**Day 16 project status:**",
+    ]
+    for text in must_keep:
+        if text not in updated:
+            raise AssertionError(f"Prior roadmap marker missing: {text}")
 
-    output.parent.mkdir(parents=True, exist_ok=True)
-    # 'x' mode prevents accidental overwrite, including at write time.
-    with output.open("x", encoding="utf-8", newline="") as f:
-        f.write(after)
+    expected = [
+        "**Day 41 status:** ✅ Completed",
+        "**Day 41 Part 1 status:** ✅ Completed",
+        "**Day 41 Part 2 status:** ✅ Completed",
+        "**Day 41 Part 3 status:** ✅ Completed",
+        "**Day 41 one-pagers:** ✅ Completed",
+        "**Day 42 roadmap:**",
+        "Days 1–41 completed (68.3%)",
+        "✅ Day 41",
+    ]
+    for text in expected:
+        if text not in updated:
+            raise AssertionError(f"Update not present: {text}")
 
-    print("=" * 57)
-    print("DAY 40 ROADMAP UPDATE SUCCESSFUL")
-    print("=" * 57)
-    print(f"Source (unchanged): {source.resolve()}")
-    print(f"New output:         {output.resolve()}")
-    print(f"Original lines:     {len(before.splitlines())}")
-    print(f"Updated lines:      {len(after.splitlines())}")
-    print("Progress:           40/60 days (66.7%) — 20 remaining")
-    print("Part 1:             Redis — completed")
-    print("Part 2:             Background Tasks — completed")
-    print("One-pagers:         3 completed")
-    print("Next:               Day 41 Logging / Monitoring / Error Handling")
-    print("Integrity:          Prior content preserved; no original overwritten")
-    print("=" * 57)
+    if updated.count("**Day 41 status:**") != 1:
+        raise AssertionError("Duplicate Day 41 completion records")
+    if updated.count("✅ Day 41") != 1:
+        raise AssertionError("Duplicate Day 41 checklist entry")
+
+    # Before writing, verify all changes are exactly the intended five edits.
+    reverted = updated
+    reverted = replace_exact(reverted, DAY41_RECORD.strip(), placeholder)
+    for old, new in replacements.items():
+        reverted = replace_exact(reverted, new, old)
+    if reverted != original:
+        raise AssertionError("Unexpected changes to prior Markdown content.")
+
+    output.write_text(updated, encoding="utf-8")
+    print("=" * 60)
+    print("DAY 41 ROADMAP UPDATE SUCCESSFUL")
+    print("=" * 60)
+    print(f"Source retained: {source.resolve()}")
+    print(f"Output created: {output.resolve()}")
+    print(f"Original lines: {len(original.splitlines())}")
+    print(f"Updated lines: {len(updated.splitlines())}")
+    print(f"Output bytes: {output.stat().st_size:,}")
+    print("Progress: 41/60 days (68.3%), 19 days remaining")
+    print("Day 41: Logging, Monitoring, Error Handling — complete")
+    print("Next: Day 42 — Production Backend Project")
+    print("=" * 60)
 
 
 if __name__ == "__main__":

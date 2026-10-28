@@ -23,4 +23,6 @@ __pycache__/
 
 # Logs
 *.log
+projects/day41_logging_monitoring_error_handling/logs/
+
 .venv-pytorch/
