@@ -1,0 +1,19 @@
+
+fastapi[standard]
+pytest
+httpx
+
+# Database integration
+SQLAlchemy>=2.0,<3.0
+psycopg[binary]>=3.0,<4.0
+
+# Database migrations
+alembic>=1.13,<2.0
+
+pwdlib[argon2]
+
+PyJWT>=2.10,<3.0
+
+redis>=5,<9
+
+prometheus-client>=0.21,<1
